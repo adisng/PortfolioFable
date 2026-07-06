@@ -23,18 +23,18 @@ export function Bento() {
   }
 
   return (
-    <section id="about" className="mx-auto max-w-7xl px-4 py-16 md:py-24">
+    <section id="about" className="mx-auto max-w-7xl px-4 py-24 md:py-32">
       <div className="grid gap-4 lg:grid-cols-3">
 
         {/* Profile card */}
         <Reveal>
-          <article className="glass flex flex-col p-4 lg:p-6">
+          <article className="glass flex flex-col p-6">
             <p className="mb-3 font-mono text-xs tracking-[0.3em] text-muted-foreground">01/</p>
             <h2 className="text-3xl font-bold tracking-wide text-foreground">
               Aditya <span className="font-serif italic text-muted-foreground">Singh</span>
             </h2>
             <p className="mt-1 text-sm text-muted-foreground">Raipur, India</p>
-            <div className="relative mt-6 aspect-[4/5] w-full overflow-hidden border-2 border-border">
+            <div className="relative mt-6 aspect-[3/4] w-full overflow-hidden border-2 border-border">
               <Image src="/images/portrait.jpg" alt="Portrait of Aditya Singh" width={960} height={1280} className="h-auto w-full transition-transform duration-700 hover:scale-105" />
             </div>
             <div className="mt-6 flex items-center justify-center gap-3">
@@ -53,7 +53,7 @@ export function Bento() {
 
           {/* About card */}
           <Reveal delay={0.1}>
-            <article className="glass p-4 lg:p-6">
+            <article className="glass p-6">
               <p className="font-mono text-xs font-medium uppercase tracking-[0.3em] text-muted-foreground">02/ About Me</p>
               <h3 className="mt-4 text-2xl font-bold text-foreground">
                 Complete products, <span className="font-serif italic font-normal text-muted-foreground">idea to deployment.</span>
@@ -84,7 +84,7 @@ export function Bento() {
 
             {/* Connect card */}
             <Reveal delay={0.2}>
-              <article className="glass flex flex-col p-4 lg:p-6">
+              <article className="glass flex flex-col p-6">
                 <span className="inline-flex w-fit items-center gap-2 border-2 border-accent bg-secondary px-3 py-1.5 font-mono text-xs font-medium uppercase tracking-wider text-foreground">
                   <span className="size-2 rounded-full bg-accent" aria-hidden="true" />
                   Available for work
