@@ -23,7 +23,7 @@ export function Bento() {
   }
 
   return (
-    <section id="about" className="mx-auto max-w-7xl px-4 py-24 md:py-32">
+    <section id="about" className="mx-auto max-w-7xl px-4 py-16 md:py-24">
       <div className="grid gap-4 lg:grid-cols-3">
 
         {/* Profile card */}
@@ -34,7 +34,7 @@ export function Bento() {
               Aditya <span className="font-serif italic text-muted-foreground">Singh</span>
             </h2>
             <p className="mt-1 text-sm text-muted-foreground">Raipur, India</p>
-            <div className="relative mt-6 aspect-[3/4] w-full overflow-hidden border-2 border-border">
+            <div className="relative mt-6 aspect-[3/4] w-full max-h-72 overflow-hidden border-2 border-border">
               <Image src="/images/portrait.jpg" alt="Portrait of Aditya Singh" width={960} height={1280} className="h-auto w-full transition-transform duration-700 hover:scale-105" />
             </div>
             <div className="mt-6 flex items-center justify-center gap-3">
