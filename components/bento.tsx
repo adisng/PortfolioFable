@@ -25,7 +25,7 @@ export function Bento() {
   return (
     <section id="about" className="mx-auto max-w-7xl px-4 py-24 md:py-32">
       {/* Mobile/tablet: simple stacked layout */}
-      <div className="grid gap-4 xl:hidden">
+      <div className="grid gap-4 lg:hidden">
         <Reveal>
           <article className="glass flex flex-col p-6">
             <p className="mb-3 font-mono text-xs tracking-[0.3em] text-muted-foreground">01/</p>
@@ -33,7 +33,7 @@ export function Bento() {
               Aditya <span className="font-serif italic text-muted-foreground">Singh</span>
             </h2>
             <p className="mt-1 text-sm text-muted-foreground">Raipur, India</p>
-            <div className="relative mt-6 aspect-[3/4] w-full max-h-64 overflow-hidden border-2 border-border">
+            <div className="relative mt-6 aspect-[3/4] w-full overflow-hidden border-2 border-border">
               <Image src="/images/portrait.jpg" alt="Portrait of Aditya Singh" width={960} height={1280} className="h-auto w-full transition-transform duration-700 hover:scale-105" />
             </div>
             <div className="mt-6 flex items-center justify-center gap-3">
@@ -94,7 +94,7 @@ export function Bento() {
       </div>
 
       {/* Desktop: bento grid */}
-      <div className="hidden gap-4 xl:grid xl:grid-cols-3 xl:items-stretch">
+      <div className="hidden gap-4 lg:grid lg:grid-cols-3 lg:items-stretch">
         {/* Profile column */}
         <Reveal className="h-full">
           <article className="glass flex h-full flex-col p-6">
