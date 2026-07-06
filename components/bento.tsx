@@ -34,7 +34,7 @@ export function Bento() {
               Aditya <span className="font-serif italic text-muted-foreground">Singh</span>
             </h2>
             <p className="mt-1 text-sm text-muted-foreground">Raipur, India</p>
-            <div className="relative mt-6 aspect-[3/4] w-full overflow-hidden border-2 border-border">
+            <div className="relative mt-6 aspect-[4/5] w-full overflow-hidden border-2 border-border">
               <Image src="/images/portrait.jpg" alt="Portrait of Aditya Singh" width={960} height={1280} className="h-auto w-full transition-transform duration-700 hover:scale-105" />
             </div>
             <div className="mt-6 flex items-center justify-center gap-3">
