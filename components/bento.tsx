@@ -24,7 +24,7 @@ export function Bento() {
 
   return (
     <section id="about" className="mx-auto max-w-7xl px-4 py-24 md:py-32">
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
         {/* Profile card */}
         <Reveal className="md:row-span-2">
           <article className="glass flex h-full flex-col p-6">

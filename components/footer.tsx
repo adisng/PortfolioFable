@@ -34,7 +34,7 @@ export function Footer() {
   return (
     <footer className="mx-auto max-w-7xl px-4 pb-8 pt-12">
       <div className="glass p-8 md:p-12">
-        <div className="grid gap-12 md:grid-cols-2">
+        <div className="grid gap-8 md:grid-cols-2">
           <div>
             <p className="headline-giant text-5xl uppercase text-foreground">
               Aadi

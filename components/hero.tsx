@@ -54,19 +54,19 @@ export function Hero() {
           initial={reduce ? false : { opacity: 0, scale: 0.96, y: 40 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-          className="headline-giant text-[clamp(5rem,22vw,17rem)] uppercase text-foreground"
+          className="headline-giant text-[clamp(3.5rem,18vw,17rem)] uppercase text-foreground"
         >
           Aadi
         </motion.h1>
 
-        <p className="mt-6 font-mono text-sm uppercase tracking-[0.35em] text-muted-foreground md:text-base">
+        <p className="mt-6 px-2 font-mono text-xs uppercase tracking-[0.25em] text-muted-foreground sm:tracking-[0.35em] md:text-base">
           <StaggerWords text="Building intelligent products that are" />
         </p>
         <motion.p
           initial={reduce ? false : { opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-2 font-serif text-3xl sm:text-5xl italic text-foreground md:text-7xl"
+          className="mt-2 px-2 font-serif text-2xl sm:text-4xl italic text-foreground md:text-7xl"
         >
           fast, scalable &amp;{' '}
           <span className="brutal-underline">memorable.</span>
@@ -76,17 +76,17 @@ export function Hero() {
           initial={reduce ? false : { opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1 }}
-          className="mt-12 flex flex-wrap items-center justify-center gap-4"
+          className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap sm:gap-4"
         >
           <a
             href="#work"
-            className="brutal-shadow-accent border-2 border-foreground bg-primary px-8 py-4 font-mono text-sm font-bold uppercase tracking-wider text-primary-foreground transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
+            className="brutal-shadow-accent w-full border-2 border-foreground bg-primary px-8 py-4 text-center font-mono text-sm font-bold uppercase tracking-wider text-primary-foreground transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 sm:w-auto"
           >
             View My Work
           </a>
           <a
             href="#contact"
-            className="brutal-hover border-2 border-border bg-card px-8 py-4 font-mono text-sm font-bold uppercase tracking-wider text-foreground"
+            className="brutal-hover w-full border-2 border-border bg-card px-8 py-4 text-center font-mono text-sm font-bold uppercase tracking-wider text-foreground sm:w-auto"
           >
             Get In Touch
           </a>

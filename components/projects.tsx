@@ -87,12 +87,12 @@ export function Projects() {
           <Reveal key={project.name}>
             <article className="grid items-center gap-10 lg:grid-cols-2">
               <div className={i % 2 === 1 ? 'lg:order-2' : undefined}>
-                <div className="flex items-baseline gap-4">
+                <div className="flex flex-wrap items-baseline gap-3">
                   <span
-                    className="h-1.5 w-8 self-center bg-accent"
+                    className="h-1.5 w-8 shrink-0 self-center bg-accent"
                     aria-hidden="true"
                   />
-                  <h3 className="text-3xl font-bold text-foreground md:text-4xl">
+                  <h3 className="text-2xl font-bold text-foreground md:text-4xl">
                     {project.name}
                   </h3>
                   <span className="font-mono text-xs tracking-[0.3em] text-muted-foreground">

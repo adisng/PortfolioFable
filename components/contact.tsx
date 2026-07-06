@@ -23,7 +23,7 @@ export function Contact() {
 
       <div className="relative mx-auto max-w-5xl">
         <Reveal>
-          <h2 className="headline-giant text-balance text-6xl uppercase text-foreground md:text-[7rem]">
+          <h2 className="headline-giant text-balance text-4xl uppercase text-foreground sm:text-5xl md:text-[7rem]">
             Let&apos;s create{' '}
             <span className="font-serif normal-case italic font-normal text-muted-foreground">
               something real.
