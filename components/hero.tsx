@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic'
 import { motion, useReducedMotion } from 'motion/react'
-import { MapPin, Sparkles, ArrowDown } from 'lucide-react'
+import { MapPin, Sparkles, ArrowDown, Download } from 'lucide-react'
 import { StaggerWords } from '@/components/reveal'
 
 const Hero3D = dynamic(() => import('@/components/hero-3d'), { ssr: false })
@@ -89,6 +89,14 @@ export function Hero() {
             className="brutal-hover w-full border-2 border-border bg-card px-8 py-4 text-center font-mono text-sm font-bold uppercase tracking-wider text-foreground sm:w-auto"
           >
             Get In Touch
+          </a>
+          <a
+            href="/Aditya-Singh-Resume.pdf"
+            download="Aditya-Singh-Resume.pdf"
+            className="brutal-hover inline-flex w-full items-center justify-center gap-2 border-2 border-border bg-card px-8 py-4 text-center font-mono text-sm font-bold uppercase tracking-wider text-foreground sm:w-auto"
+          >
+            <Download className="size-4" aria-hidden="true" />
+            Download Resume
           </a>
         </motion.div>
       </div>
