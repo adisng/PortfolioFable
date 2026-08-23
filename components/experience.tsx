@@ -68,7 +68,7 @@ function Timeline({ entries }: { entries: Entry[] }) {
 export function Experience() {
   return (
     <>
-      <section className="mx-auto max-w-4xl px-4 py-24 md:py-32">
+      <section className="mx-auto max-w-4xl px-4 py-16 sm:py-24 md:py-32">
         <Reveal>
           <p className="font-mono text-xs font-medium uppercase tracking-[0.4em] text-muted-foreground">
             [ The Journey ]

@@ -1,4 +1,5 @@
 import { Analytics } from '@vercel/analytics/next'
+import Script from 'next/script'
 import type { Metadata, Viewport } from 'next'
 import { Archivo, Instrument_Serif } from 'next/font/google'
 import { ThemeProvider } from 'next-themes'
@@ -96,9 +97,9 @@ export default function RootLayout({
       className={`bg-background ${archivo.variable} ${instrument.variable}`}
     >
       <body className="grain font-sans antialiased">
-        <script
+        <Script
+          id="person-jsonld"
           type="application/ld+json"
-          // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>

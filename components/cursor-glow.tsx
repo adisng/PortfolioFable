@@ -4,28 +4,24 @@ import { useEffect } from 'react'
 import {
   motion,
   useMotionValue,
-  useReducedMotion,
   useSpring,
 } from 'motion/react'
 
 export function CursorGlow() {
-  const reduce = useReducedMotion()
   const x = useMotionValue(-400)
   const y = useMotionValue(-400)
   const sx = useSpring(x, { stiffness: 120, damping: 25 })
   const sy = useSpring(y, { stiffness: 120, damping: 25 })
 
   useEffect(() => {
-    if (reduce) return
     const move = (e: PointerEvent) => {
       x.set(e.clientX - 200)
       y.set(e.clientY - 200)
     }
     window.addEventListener('pointermove', move, { passive: true })
     return () => window.removeEventListener('pointermove', move)
-  }, [x, y, reduce])
+  }, [x, y])
 
-  if (reduce) return null
 
   return (
     <motion.div

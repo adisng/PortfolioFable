@@ -15,7 +15,7 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="relative overflow-hidden px-4 py-24 md:py-32">
+    <section id="contact" className="relative overflow-hidden px-4 py-16 sm:py-24 md:py-32">
       <div
         aria-hidden="true"
         className="animate-drift absolute right-0 top-0 size-96 rounded-full bg-accent/10 blur-[120px]"
@@ -72,7 +72,7 @@ export function Contact() {
             </li>
             <li>
               <a
-                href="/resume.pdf"
+                href="/resume/aditya-singh-resume.pdf"
                 download="Aditya-Singh-Resume.pdf"
                 className="flex items-center gap-2 font-mono text-sm text-muted-foreground underline decoration-accent decoration-2 underline-offset-4 transition-colors hover:text-accent"
               >
@@ -102,7 +102,7 @@ export function Contact() {
           ) : (
             <form
               onSubmit={handleSubmit}
-              className="glass mt-12 grid gap-6 p-8 md:grid-cols-2 md:p-10"
+              className="glass mt-12 grid gap-6 p-5 sm:p-8 md:grid-cols-2 md:p-10"
             >
               <div className="flex flex-col gap-2">
                 <label

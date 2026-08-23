@@ -51,7 +51,7 @@ const services = [
 
 export function Services() {
   return (
-    <section id="services" className="mx-auto max-w-7xl px-4 py-24 md:py-32">
+    <section id="services" className="mx-auto max-w-7xl px-4 py-16 sm:py-24 md:py-32">
       <Reveal>
         <p className="font-mono text-xs font-medium uppercase tracking-[0.4em] text-muted-foreground">
           [ What I Offer ]

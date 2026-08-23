@@ -1,161 +1,56 @@
 'use client'
 
+import { AnimatePresence, motion } from 'motion/react'
 import Image from 'next/image'
-import { Plus } from 'lucide-react'
-import { Reveal } from '@/components/reveal'
+import { ArrowLeft, ArrowRight, ExternalLink } from 'lucide-react'
+import { useCallback, useEffect, useState } from 'react'
+import { CaseStudy3D } from '@/components/case-study-3d'
 
-type Project = {
-  name: string
-  index: string
-  description: string
-  features: string[]
-  stack: string[]
-  image: string
-  alt: string
-  video?: string
-}
+type Project = { id: string; name: string; tag: string; role: string; timeline: string; problem: string; approach: string; challenges: string; outcome: string; stack: string[]; live?: string; github?: string; image?: { src: string; alt: string }; video?: { src: string; label: string }; three: 'icosahedron' | 'network' | 'card' | 'parallax' }
 
 const projects: Project[] = [
-  {
-    name: 'AI Invoice Processing System',
-    index: '01',
-    description:
-      'An intelligent automation platform built using n8n, OCR.space, Google Sheets, and AI to extract invoice information automatically while dramatically reducing manual work.',
-    features: [
-      'Automatic invoice data extraction with OCR',
-      'AI-powered field detection and validation',
-      'Google Sheets sync for instant record keeping',
-      'End-to-end n8n workflow automation',
-    ],
-    stack: ['n8n', 'OCR.space', 'Google Sheets', 'AI', 'Webhooks'],
-    image: '/images/project-pulseboard.png',
-    alt: 'AI Invoice Processing System dashboard shown on laptop and phone mockups',
-  },
-  {
-    name: 'Medical AI Triage Assistant',
-    index: '02',
-    description:
-      'An AI-powered healthcare assistant designed to analyze symptoms, prioritize cases, and assist medical decision making using cloud-native architecture.',
-    features: [
-      'Symptom analysis with AI reasoning',
-      'Case prioritization for faster triage',
-      'Decision support for medical staff',
-      'Cloud-native, scalable architecture',
-    ],
-    stack: ['Python', 'FastAPI', 'AI', 'Cloud', 'React'],
-    image: '/images/project-neuraflow.png',
-    alt: 'Medical AI Triage Assistant interface shown on laptop and phone mockups',
-  },
-  {
-    name: 'Duck Hunter: Definitive Edition',
-    index: '03',
-    description:
-      'A browser-based game rebuilt with modern JavaScript architecture, modular systems, optimized rendering, advanced game state management, and polished gameplay mechanics.',
-    features: [
-      'Modern modular JavaScript architecture',
-      'Optimized rendering pipeline',
-      'Advanced game state management',
-      'Polished gameplay mechanics',
-    ],
-    stack: ['JavaScript', 'HTML5 Canvas', 'CSS3', 'Vite'],
-    image: '/images/project-relay.png',
-    alt: 'Duck Hunter: Definitive Edition game shown on laptop and phone mockups',
-    video: '/videos/demoduck.webm',
-  },
+  { id: '01', name: 'EmotiSense', tag: 'ML · Computer Vision · Full Stack', role: 'Solo', timeline: '1 day', problem: 'Facial expression recognition systems typically sacrifice either accuracy or transparency — most force confident predictions even on ambiguous inputs, and none surface their own limitations to the user.', approach: 'Built a two-stage fine-tuning pipeline on EfficientNetB0 — frozen backbone first, then unfreezing the top 40 layers at 1/10th learning rate to adapt ImageNet features without destroying them. MediaPipe handles face detection upstream so the classifier only ever sees clean face crops. Tackled a 16:1 class imbalance with focal loss, inverse-frequency class weighting, and minority oversampling — monitored with balanced accuracy and macro F1, not raw accuracy which flatters imbalanced data.', challenges: 'Class imbalance was the core problem — raw accuracy was misleading at every step. Uncertainty-aware output required designing a confidence threshold system that gracefully surfaces “unsure” states instead of forcing a wrong label. Deploying a TensorFlow model on Render with acceptable cold-start latency required careful model quantization.', outcome: 'Live real-time expression classification across 7 categories. Full session analytics with SQLite, per-session emotion timelines. Model limitations visible in the UI — no inflated accuracy claims. If rebuilt: would explore MobileNetV3 for faster inference.', stack: ['Python', 'FastAPI', 'TensorFlow', 'MediaPipe', 'OpenCV', 'React'], live: 'https://emotisense-henna.vercel.app/', three: 'icosahedron' },
+  { id: '02', name: 'AutoLeads v2', tag: 'Automation · AI · n8n', role: 'Solo', timeline: '—', problem: 'Manual lead generation for local businesses is slow, inconsistent, and does not scale — scraping Google Maps by hand and tracking outreach in spreadsheets creates chaos at volume.', approach: 'n8n orchestrates the entire pipeline via three webhooks: search trigger, leads feed, and contacted status update. Google Maps data flows into per-city Google Sheets created dynamically via Sheets API batchUpdate. FastAPI handles the backend logic. WhatsApp outreach is triggered automatically post-qualification. Deduplication is scoped to city sheets to prevent double-outreach.', challenges: 'Dynamic sheet creation per city required careful batchUpdate sequencing — sheets had to be created before data was written or the whole pipeline would fail silently. Deduplication logic across async webhook calls needed idempotency guarantees.', outcome: 'Fully automated lead pipeline from search to outreach. Scales across cities without manual intervention. Slim field output keeps Sheets readable for non-technical users.', stack: ['n8n', 'FastAPI', 'Google Maps API', 'Google Sheets API', 'WhatsApp', 'Webhooks'], image: { src: '/images/project-pulseboard.png', alt: 'AutoLeads v2 dashboard interface' }, three: 'network' },
+  { id: '03', name: 'House Edge', tag: '3D · Game · React Three Fiber', role: 'Solo', timeline: '—', problem: 'Browser-based card games are almost universally flat and lifeless — standard DOM rendering cannot deliver the cinematic feel of a real casino table.', approach: 'Built entirely on React Three Fiber with Framer Motion handling UI transitions. Custom dealer persona with a low-poly 3D character, bat-swing animation, and a cinematic intro camera sequence implemented as an additive state machine. Card textures upgraded from 256×358 to 512×716 with anisotropic filtering. Mobile camera rig required a custom k-clamp reduction to prevent over-rotation on narrow viewports.', challenges: 'Camera rig behaviour on mobile was the hardest problem — the default OrbitControls damping felt wrong on touch. Card texture aliasing at oblique angles required anisotropic filtering tuned per device pixel ratio.', outcome: 'Live at blackjackv5.vercel.app. Full cinematic blackjack experience in the browser with a custom 3D dealer character. If rebuilt: would use instanced geometry for the card deck to cut draw calls.', stack: ['React Three Fiber', 'Framer Motion', 'Next.js', 'TypeScript', 'Three.js'], live: 'https://blackjackv5.vercel.app', three: 'card' },
+  { id: '04', name: 'Duck Hunter: Definitive Edition', tag: 'Game Dev · Canvas · Vanilla JS', role: 'Solo', timeline: '—', problem: 'The original Duck Hunt experience has not been faithfully rebuilt for the browser with modern architecture — existing clones are throwaway demos with no polish or extensibility.', approach: 'Ported from a Python/Pygame prototype to HTML5 Canvas + vanilla JavaScript with no framework dependencies. Modular architecture with separated game state, rendering, and input layers. Character selection carousel with drag/swipe navigation, CSS custom properties per character, and prefers-reduced-motion support. 26 Playwright smoke tests pass. Premium indie aesthetic inspired by Firewatch and Linear.', challenges: 'Porting Pygame’s game loop model to requestAnimationFrame required rethinking the update/render separation entirely. Character carousel drag/swipe needed to feel native on both mouse and touch without a library.', outcome: 'All 26 Playwright tests passing. Modular codebase extensible for new characters and game modes. If rebuilt: would use OffscreenCanvas for the background render layer to free up the main thread.', stack: ['JavaScript', 'HTML5 Canvas', 'CSS3', 'Vite', 'Playwright'], video: { src: '/videos/demoduck.webm', label: 'Duck Hunter gameplay demo' }, three: 'parallax' },
 ]
 
 export function Projects() {
+  const [index, setIndex] = useState(0)
+  const [direction, setDirection] = useState(1)
+  const project = projects[index]
+  const move = useCallback((next: number) => { setDirection(next > index ? 1 : -1); setIndex(next) }, [index])
+  const next = useCallback(() => move((index + 1) % projects.length), [index, move])
+  const previous = useCallback(() => move((index - 1 + projects.length) % projects.length), [index, move])
+  useEffect(() => { const onKey = (event: KeyboardEvent) => { if (event.key === 'ArrowRight') next(); if (event.key === 'ArrowLeft') previous() }; window.addEventListener('keydown', onKey); return () => window.removeEventListener('keydown', onKey) }, [next, previous])
+
+  return <section id="work" className="relative flex min-h-screen overflow-hidden border-y-2 border-foreground bg-background" aria-label="Case studies">
+    <AnimatePresence mode="wait" custom={direction} initial={false}>
+      <motion.article key={project.id} custom={direction} initial={{ x: direction * 60, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: direction * -60, opacity: 0 }} transition={{ type: 'spring', stiffness: 80, damping: 20 }} drag="x" dragConstraints={{ left: 0, right: 0 }} onDragEnd={(_, info) => { if (info.offset.x < -60) next(); if (info.offset.x > 60) previous() }} className="relative flex min-h-screen w-full shrink-0 touch-pan-y flex-col justify-center px-8 py-24 md:px-16 lg:px-24">
+        <CaseStudy3D type={project.three} />
+        <div className="relative z-10 grid gap-12 lg:grid-cols-[40%_60%] lg:gap-20">
+          <div className="flex flex-col justify-center"><p className="font-mono text-xs uppercase tracking-[0.4em] text-muted-foreground">[ Case Studies ]</p><p className="mt-12 font-mono text-xs tracking-widest text-muted-foreground">{project.id} / {String(projects.length).padStart(2, '0')}</p><h2 className="mt-5 max-w-xl text-balance text-6xl font-bold tracking-tighter text-foreground md:text-8xl">{project.name}</h2><p className="mt-5 max-w-lg font-mono text-xs uppercase tracking-widest text-accent">{project.tag}</p><dl className="mt-12 border-t border-foreground/20 font-mono text-xs uppercase tracking-widest"><div className="flex justify-between gap-4 border-b border-foreground/20 py-4"><dt className="text-muted-foreground">/ Role</dt><dd>{project.role}</dd></div><div className="flex justify-between gap-4 border-b border-foreground/20 py-4"><dt className="text-muted-foreground">/ Timeline</dt><dd>{project.timeline}</dd></div><div className="flex justify-between gap-4 border-b border-foreground/20 py-4"><dt className="text-muted-foreground">/ Type</dt><dd className="text-right">{project.tag.split(' · ')[0]}</dd></div></dl><div className="mt-8 flex flex-wrap gap-3">{project.live && <a className="brutal-hover inline-flex items-center gap-2 border-2 border-foreground px-4 py-3 font-mono text-xs uppercase tracking-widest" href={project.live} target="_blank" rel="noreferrer">View live <ExternalLink data-icon="inline-end" /></a>}{project.github && <a className="brutal-hover border-2 border-foreground px-4 py-3 font-mono text-xs uppercase tracking-widest" href={project.github} target="_blank" rel="noreferrer">GitHub</a>}</div><MediaPreview image={project.image} video={project.video} /></div>
+          <div className="flex flex-col justify-center border-l-0 lg:pl-8"><Block label="The problem" text={project.problem} /><Block label="Approach & methodology" text={project.approach} /><Block label="Key engineering challenges" text={project.challenges} /><Block label="Outcome" text={project.outcome} /><ul className="flex flex-wrap gap-2 pt-8">{project.stack.map((item) => <li key={item} className="border border-foreground/30 px-3 py-2 font-mono text-xs uppercase tracking-widest text-muted-foreground">{item}</li>)}</ul></div>
+        </div>
+      </motion.article>
+    </AnimatePresence>
+    <button aria-label="Previous case study" onClick={previous} className="absolute left-4 top-1/2 z-20 -translate-y-1/2 border border-transparent p-3 text-foreground transition hover:translate-x-0.5 hover:border-current md:left-8"><ArrowLeft /></button><button aria-label="Next case study" onClick={next} className="absolute right-4 top-1/2 z-20 -translate-y-1/2 border border-transparent p-3 text-foreground transition hover:-translate-x-0.5 hover:border-current md:right-8"><ArrowRight /></button><p aria-live="polite" className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2 font-mono text-xs tracking-[0.3em] text-muted-foreground">{project.id} / {String(projects.length).padStart(2, '0')}</p>
+  </section>
+}
+
+function MediaPreview({ image, video }: Pick<Project, 'image' | 'video'>) {
+  if (!image && !video) return null
+
   return (
-    <section id="work" className="relative px-4 py-24 md:py-32">
-      <Reveal>
-        <p className="text-center font-mono text-xs font-medium uppercase tracking-[0.4em] text-muted-foreground">
-          [ Crafting Modern Experiences ]
-        </p>
-        <h2 className="headline-giant mt-4 text-balance text-center text-5xl uppercase text-foreground md:text-8xl">
-          Venture{' '}
-          <span className="font-serif normal-case italic font-normal text-accent">
-            Showcase
-          </span>
-        </h2>
-        <p className="mt-6 text-center font-mono text-xs uppercase tracking-[0.35em] text-muted-foreground">
-          /Scroll to explore
-        </p>
-      </Reveal>
-
-      <div className="mx-auto mt-24 flex max-w-7xl flex-col gap-16 md:gap-32">
-        {projects.map((project, i) => (
-          <Reveal key={project.name}>
-            <article className="grid items-center gap-10 lg:grid-cols-2">
-              <div className={i % 2 === 1 ? 'lg:order-2' : undefined}>
-                <div className="flex flex-wrap items-baseline gap-3">
-                  <span
-                    className="h-1.5 w-8 shrink-0 self-center bg-accent"
-                    aria-hidden="true"
-                  />
-                  <h3 className="text-2xl font-bold text-foreground md:text-4xl">
-                    {project.name}
-                  </h3>
-                  <span className="font-mono text-xs tracking-[0.3em] text-muted-foreground">
-                    [{project.index}/03]
-                  </span>
-                </div>
-                <p className="mt-6 leading-relaxed text-muted-foreground">
-                  {project.description}
-                </p>
-                <ul className="mt-8 flex flex-col gap-3">
-                  {project.features.map((feature) => (
-                    <li
-                      key={feature}
-                      className="flex items-center gap-3 text-sm text-foreground"
-                    >
-                      <Plus
-                        className="size-3.5 shrink-0 text-accent"
-                        aria-hidden="true"
-                      />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                <ul className="mt-8 flex flex-wrap gap-2">
-                  {project.stack.map((tech) => (
-                    <li
-                      key={tech}
-                      className="border-2 border-border bg-card px-4 py-1.5 font-mono text-xs font-medium text-foreground"
-                    >
-                      {tech}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div
-                className={`brutal-shadow-accent group relative overflow-hidden border-2 border-foreground/40 ${
-                  i % 2 === 1 ? 'lg:order-1' : ''
-                }`}
-              >
-                {project.video ? (
-                  <video
-                    src={project.video}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-                  />
-                ) : (
-                  <Image
-                    src={project.image || '/placeholder.svg'}
-                    alt={project.alt}
-                    width={880}
-                    height={660}
-                    className="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-                  />
-                )}
-              </div>
-            </article>
-          </Reveal>
-        ))}
-      </div>
-    </section>
+    <div className="mt-8 overflow-hidden border-2 border-foreground bg-muted/20">
+      <p className="sr-only">Project media preview</p>
+      {image ? (
+        <Image src={image.src} alt={image.alt} width={1200} height={800} className="aspect-video h-auto w-full object-cover" />
+      ) : video ? (
+        <video className="aspect-video w-full object-cover" src={video.src} aria-label={video.label} autoPlay muted loop playsInline controls preload="metadata" />
+      ) : null}
+    </div>
   )
 }
+
+function Block({ label, text }: { label: string; text: string }) { return <div className="border-t border-foreground/20 py-6"><p className="font-mono text-xs uppercase tracking-[0.3em] text-accent">/ {label}</p><p className="mt-3 max-w-2xl leading-relaxed text-muted-foreground">{text}</p></div> }

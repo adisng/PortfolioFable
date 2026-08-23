@@ -1,15 +1,13 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import { motion, useReducedMotion } from 'motion/react'
+import { motion } from 'motion/react'
 import { MapPin, Sparkles, ArrowDown, Download } from 'lucide-react'
 import { StaggerWords } from '@/components/reveal'
 
 const Hero3D = dynamic(() => import('@/components/hero-3d'), { ssr: false })
 
 export function Hero() {
-  const reduce = useReducedMotion()
-
   return (
     <section
       id="top"
@@ -26,11 +24,11 @@ export function Hero() {
       />
 
       {/* Cinematic 3D centerpiece */}
-      {!reduce && <Hero3D />}
+      <Hero3D />
 
-      <div className="relative z-10 flex flex-col items-center text-center">
+      <div className="relative z-10 flex w-full max-w-5xl flex-col items-center px-2 text-center">
         <motion.p
-          initial={reduce ? false : { opacity: 0 }}
+          initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.1 }}
           className="mb-4 flex items-center gap-2.5 font-mono text-xs font-medium uppercase tracking-[0.3em] text-muted-foreground"
@@ -42,7 +40,7 @@ export function Hero() {
           Available for Work
         </motion.p>
         <motion.p
-          initial={reduce ? false : { opacity: 0 }}
+          initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.2 }}
           className="mb-6 border-2 border-border px-4 py-2 font-mono text-xs font-medium uppercase tracking-[0.4em] text-muted-foreground"
@@ -51,7 +49,7 @@ export function Hero() {
         </motion.p>
 
         <motion.h1
-          initial={reduce ? false : { opacity: 0, scale: 0.96, y: 40 }}
+          initial={{ opacity: 0, scale: 0.96, y: 40 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
           className="headline-giant text-[clamp(3.5rem,18vw,17rem)] uppercase text-foreground"
@@ -63,7 +61,7 @@ export function Hero() {
           <StaggerWords text="Building intelligent products that are" />
         </p>
         <motion.p
-          initial={reduce ? false : { opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="mt-2 px-2 font-serif text-2xl sm:text-4xl italic text-foreground md:text-7xl"
@@ -73,7 +71,7 @@ export function Hero() {
         </motion.p>
 
         <motion.div
-          initial={reduce ? false : { opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1 }}
           className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap sm:gap-4"
@@ -91,7 +89,7 @@ export function Hero() {
             Get In Touch
           </a>
           <a
-            href="/Aditya-Singh-Resume.pdf"
+            href="/resume/aditya-singh-resume.pdf"
             download="Aditya-Singh-Resume.pdf"
             className="brutal-hover inline-flex w-full items-center justify-center gap-2 border-2 border-border bg-card px-8 py-4 text-center font-mono text-sm font-bold uppercase tracking-wider text-foreground sm:w-auto"
           >
@@ -125,7 +123,7 @@ export function Hero() {
         href="#about"
         aria-label="Scroll to about section"
         className="absolute bottom-8 left-1/2 -translate-x-1/2 text-muted-foreground"
-        animate={reduce ? undefined : { y: [0, 8, 0] }}
+        animate={{ y: [0, 8, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
       >
         <ArrowDown className="size-5" />
