@@ -5,6 +5,9 @@ import { Environment, OrbitControls } from '@react-three/drei'
 import { useRef } from 'react'
 import * as THREE from 'three'
 
+const ACCENT_COLOR = '#ff7a1a'
+const FOREGROUND_COLOR = '#f5f2ea'
+
 type SceneType = 'icosahedron' | 'network' | 'card' | 'parallax'
 
 function Icosahedron() {
@@ -16,7 +19,7 @@ function Icosahedron() {
     ref.current.position.x = THREE.MathUtils.lerp(ref.current.position.x, state.pointer.x * 0.8, 0.04)
     ref.current.position.y = THREE.MathUtils.lerp(ref.current.position.y, state.pointer.y * 0.5, 0.04)
   })
-  return <mesh ref={ref} scale={2.7}><icosahedronGeometry args={[1, 2]} /><meshBasicMaterial color="var(--accent)" wireframe transparent opacity={0.8} /></mesh>
+  return <mesh ref={ref} scale={2.7}><icosahedronGeometry args={[1, 2]} /><meshBasicMaterial color={ACCENT_COLOR} wireframe transparent opacity={0.8} /></mesh>
 }
 
 function Network() {
@@ -27,7 +30,7 @@ function Network() {
     group.current.rotation.y = state.clock.elapsedTime * 0.08
     group.current.rotation.x = state.pointer.y * 0.12
   })
-  return <group ref={group}>{nodes.map(([x, y, z], i) => <mesh key={i} position={[x, y, z]}><sphereGeometry args={[0.12, 12, 12]} /><meshBasicMaterial color="var(--accent)" /></mesh>)}<lineSegments><edgesGeometry args={[new THREE.BoxGeometry(4.8, 2.2, 0.1)]} /><lineBasicMaterial color="var(--foreground)" transparent opacity={0.4} /></lineSegments></group>
+  return <group ref={group}>{nodes.map(([x, y, z], i) => <mesh key={i} position={[x, y, z]}><sphereGeometry args={[0.12, 12, 12]} /><meshBasicMaterial color={ACCENT_COLOR} /></mesh>)}<lineSegments><edgesGeometry args={[new THREE.BoxGeometry(4.8, 2.2, 0.1)]} /><lineBasicMaterial color={FOREGROUND_COLOR} transparent opacity={0.4} /></lineSegments></group>
 }
 
 function CardScene() {
@@ -37,7 +40,7 @@ function CardScene() {
     ref.current.rotation.y = state.pointer.x * 0.35 + Math.sin(state.clock.elapsedTime) * 0.08
     ref.current.rotation.x = -state.pointer.y * 0.18
   })
-  return <mesh ref={ref} rotation={[0, -0.3, 0]}><planeGeometry args={[3.8, 5.4]} /><meshBasicMaterial color="var(--accent)" wireframe transparent opacity={0.6} /></mesh>
+  return <mesh ref={ref} rotation={[0, -0.3, 0]}><planeGeometry args={[3.8, 5.4]} /><meshBasicMaterial color={ACCENT_COLOR} wireframe transparent opacity={0.6} /></mesh>
 }
 
 function Parallax() {
