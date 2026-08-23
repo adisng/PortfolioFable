@@ -26,7 +26,7 @@ export function Hero() {
       {/* Cinematic 3D centerpiece */}
       <Hero3D />
 
-      <div className="relative z-10 flex flex-col items-center text-center">
+      <div className="relative z-10 flex w-full max-w-5xl flex-col items-center px-2 text-center">
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -89,7 +89,7 @@ export function Hero() {
             Get In Touch
           </a>
           <a
-            href="/Aditya-Singh-Resume.pdf"
+            href="/resume/aditya-singh-resume.pdf"
             download="Aditya-Singh-Resume.pdf"
             className="brutal-hover inline-flex w-full items-center justify-center gap-2 border-2 border-border bg-card px-8 py-4 text-center font-mono text-sm font-bold uppercase tracking-wider text-foreground sm:w-auto"
           >

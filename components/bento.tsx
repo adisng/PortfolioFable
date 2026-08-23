@@ -28,7 +28,7 @@ export function Bento() {
 
         {/* Profile card */}
         <Reveal>
-          <article className="glass flex flex-col p-6">
+          <article className="glass flex flex-col p-5 sm:p-6">
             <p className="mb-3 font-mono text-xs tracking-[0.3em] text-muted-foreground">01/</p>
             <h2 className="text-3xl font-bold tracking-wide text-foreground">
               Aditya <span className="font-serif italic text-muted-foreground">Singh</span>
@@ -84,7 +84,7 @@ export function Bento() {
 
             {/* Connect card */}
             <Reveal delay={0.2}>
-              <article className="glass flex flex-col p-6">
+              <article className="glass flex flex-col p-5 sm:p-6">
                 <span className="inline-flex w-fit items-center gap-2 border-2 border-accent bg-secondary px-3 py-1.5 font-mono text-xs font-medium uppercase tracking-wider text-foreground">
                   <span className="size-2 rounded-full bg-accent" aria-hidden="true" />
                   Available for work
