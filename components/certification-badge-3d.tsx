@@ -10,6 +10,11 @@ import {
 import { Suspense, useRef } from 'react'
 import type { Group } from 'three'
 
+// Clamp helper to strictly prevent large rotation angles (max ~6-8 degrees)
+function clamp(val: number, min: number, max: number) {
+  return Math.min(Math.max(val, min), max)
+}
+
 function BadgeModel({ scale = 1.25 }: { scale?: number }) {
   const { scene } = useGLTF('/models/certification-badge.glb')
   const groupRef = useRef<Group>(null)
@@ -17,15 +22,16 @@ function BadgeModel({ scale = 1.25 }: { scale?: number }) {
   useFrame((state) => {
     if (!groupRef.current) return
 
-    // Subtle, gentle tilt with reduced sensitivity
-    const targetX = -state.pointer.y * 0.14 // subtle vertical tilt
-    const targetY = state.pointer.x * 0.18  // subtle horizontal turn towards cursor
-    const targetZ = -state.pointer.x * 0.04 // barely noticeable roll
+    // Very gentle micro-tilt, strictly clamped to max ±0.1 rad (~5.7 degrees)
+    // It can never turn around or rotate 360
+    const targetX = clamp(-state.pointer.y * 0.08, -0.09, 0.09) // tiny vertical tilt
+    const targetY = clamp(state.pointer.x * 0.1, -0.12, 0.12)   // tiny horizontal turn
+    const targetZ = clamp(-state.pointer.x * 0.02, -0.03, 0.03) // micro roll
 
-    // Smooth lerp damping for calm, elegant motion
-    groupRef.current.rotation.x += (targetX - groupRef.current.rotation.x) * 0.05
-    groupRef.current.rotation.y += (targetY - groupRef.current.rotation.y) * 0.05
-    groupRef.current.rotation.z += (targetZ - groupRef.current.rotation.z) * 0.05
+    // Smooth lerp damping
+    groupRef.current.rotation.x += (targetX - groupRef.current.rotation.x) * 0.06
+    groupRef.current.rotation.y += (targetY - groupRef.current.rotation.y) * 0.06
+    groupRef.current.rotation.z += (targetZ - groupRef.current.rotation.z) * 0.06
   })
 
   return (
@@ -61,7 +67,8 @@ export default function CertificationBadge3D({
           <directionalLight position={[-5, -2, -2]} intensity={0.6} color="#ff7a1a" />
           <pointLight position={[0, 2, 3]} intensity={1.2} />
 
-          <Float speed={1.2} rotationIntensity={0.05} floatIntensity={0.3}>
+          {/* Locked rotation on Float so it cannot spin on its own */}
+          <Float speed={1} rotationIntensity={0} floatIntensity={0.25}>
             <BadgeModel scale={scale} />
           </Float>
 
