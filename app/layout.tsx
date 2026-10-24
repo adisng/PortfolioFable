@@ -83,6 +83,7 @@ const personJsonLd = {
   hasCredential: {
     '@type': 'EducationalOccupationalCredential',
     name: 'AWS Certified Cloud Practitioner',
+    url: 'https://www.credly.com/badges/cafdd014-7583-4124-bb34-db9745ea2adf/public_url',
   },
   knowsAbout: [
     'Full Stack Development',

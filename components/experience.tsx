@@ -137,12 +137,12 @@ export function Experience() {
 
                 <div className="mt-8 flex items-center gap-4">
                   <a
-                    href="https://aws.amazon.com/certification/certified-cloud-practitioner/"
+                    href="https://www.credly.com/badges/cafdd014-7583-4124-bb34-db9745ea2adf/public_url"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="brutal-shadow-accent inline-flex items-center gap-2 border-2 border-foreground bg-primary px-6 py-3 font-mono text-xs font-bold uppercase tracking-wider text-primary-foreground transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
                   >
-                    View Credential <ExternalLink className="size-3.5" />
+                    Verify on Credly <ExternalLink className="size-3.5" />
                   </a>
                 </div>
               </div>
