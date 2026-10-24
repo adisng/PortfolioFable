@@ -3,7 +3,6 @@
 import { Canvas, useFrame } from '@react-three/fiber'
 import {
   Float,
-  Environment,
   ContactShadows,
   MeshTransmissionMaterial,
 } from '@react-three/drei'
@@ -97,7 +96,6 @@ export default function Hero3D() {
             blur={2.6}
             far={3.2}
           />
-          <Environment preset="studio" />
         </Suspense>
       </Canvas>
     </div>

@@ -2,16 +2,45 @@
 
 import { useState } from 'react'
 import type { FormEvent } from 'react'
-import { ArrowUpRight, Check, Download, Mail, MapPin } from 'lucide-react'
+import { ArrowUpRight, Check, Download, Loader2, Mail, MapPin } from 'lucide-react'
 import { GithubIcon, LinkedinIcon } from '@/components/brand-icons'
 import { Reveal } from '@/components/reveal'
 
 export function Contact() {
   const [sent, setSent] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setSent(true)
+    setLoading(true)
+    setError(null)
+
+    const form = e.currentTarget
+    const formData = new FormData(form)
+    const name = String(formData.get('name') || '')
+    const email = String(formData.get('email') || '')
+    const message = String(formData.get('message') || '')
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, message }),
+      })
+
+      if (!res.ok) {
+        throw new Error('Failed to send message')
+      }
+
+      setSent(true)
+    } catch {
+      // Fallback: direct to mailto if API fails
+      window.location.href = `mailto:singh09aaditya@gmail.com?subject=Project Inquiry from ${encodeURIComponent(name)}&body=${encodeURIComponent(message)}%0A%0AFrom: ${encodeURIComponent(email)}`
+      setSent(true)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -72,7 +101,7 @@ export function Contact() {
             </li>
             <li>
               <a
-                href="/resume.pdf"
+                href="/Aditya-Singh-Resume.pdf"
                 download="Aditya-Singh-Resume.pdf"
                 className="flex items-center gap-2 font-mono text-sm text-muted-foreground underline decoration-accent decoration-2 underline-offset-4 transition-colors hover:text-accent"
               >
@@ -153,6 +182,11 @@ export function Contact() {
                   placeholder="Tell me about your project, timeline, and goals..."
                 />
               </div>
+              {error && (
+                <p className="font-mono text-xs text-destructive md:col-span-2">
+                  {error}
+                </p>
+              )}
               <div className="flex flex-wrap items-center justify-between gap-4 md:col-span-2">
                 <p className="flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-muted-foreground">
                   <span className="size-2 bg-accent" aria-hidden="true" />
@@ -160,9 +194,18 @@ export function Contact() {
                 </p>
                 <button
                   type="submit"
-                  className="brutal-shadow-accent flex items-center gap-2 border-2 border-foreground bg-primary px-8 py-4 font-mono text-sm font-bold uppercase tracking-wider text-primary-foreground transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
+                  disabled={loading}
+                  className="brutal-shadow-accent flex items-center gap-2 border-2 border-foreground bg-primary px-8 py-4 font-mono text-sm font-bold uppercase tracking-wider text-primary-foreground transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 disabled:opacity-60"
                 >
-                  Send Message <ArrowUpRight className="size-4" />
+                  {loading ? (
+                    <>
+                      Sending... <Loader2 className="size-4 animate-spin" />
+                    </>
+                  ) : (
+                    <>
+                      Send Message <ArrowUpRight className="size-4" />
+                    </>
+                  )}
                 </button>
               </div>
             </form>
