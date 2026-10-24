@@ -19,25 +19,35 @@ const instrument = Instrument_Serif({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.aadisng.in'),
   title: 'Aditya Singh | Full Stack Software Engineer',
   description:
     'Full Stack Software Engineer specializing in AI, Cloud, Automation, and modern web applications.',
-  generator: 'v0.app',
   alternates: {
-    canonical: '/',
+    canonical: 'https://www.aadisng.in',
   },
   openGraph: {
     title: 'Aditya Singh | Full Stack Software Engineer',
     description:
       'Full Stack Software Engineer specializing in AI, Cloud, Automation, and modern web applications.',
+    url: 'https://www.aadisng.in',
     type: 'website',
     siteName: 'AADI — Aditya Singh',
+    images: [
+      {
+        url: '/images/portrait.jpg',
+        width: 960,
+        height: 1280,
+        alt: 'Aditya Singh | Full Stack Software Engineer',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Aditya Singh | Full Stack Software Engineer',
     description:
       'Full Stack Software Engineer specializing in AI, Cloud, Automation, and modern web applications.',
+    images: ['/images/portrait.jpg'],
   },
 }
 
@@ -46,6 +56,12 @@ const personJsonLd = {
   '@type': 'Person',
   name: 'Aditya Singh',
   alternateName: 'AADI',
+  url: 'https://www.aadisng.in',
+  image: 'https://www.aadisng.in/images/portrait.jpg',
+  sameAs: [
+    'https://github.com/adisng',
+    'https://www.linkedin.com/in/patialapapi03',
+  ],
   jobTitle: 'Full Stack Software Engineer',
   description:
     'Full Stack Software Engineer specializing in AI, Cloud, Automation, and modern web applications.',
