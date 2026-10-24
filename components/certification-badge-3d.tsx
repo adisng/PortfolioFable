@@ -14,18 +14,18 @@ function BadgeModel({ scale = 1.25 }: { scale?: number }) {
   const { scene } = useGLTF('/models/certification-badge.glb')
   const groupRef = useRef<Group>(null)
 
-  useFrame((state, delta) => {
+  useFrame((state) => {
     if (!groupRef.current) return
 
-    // Gentle continuous base rotation
-    groupRef.current.rotation.y += delta * 0.2
+    // Keep it facing straight forward; only tilt responsively with cursor position
+    const targetX = -state.pointer.y * 0.35 // vertical tilt
+    const targetY = state.pointer.x * 0.45  // horizontal turn towards cursor
+    const targetZ = -state.pointer.x * 0.1   // subtle roll
 
-    // Smoothly track cursor pointer coordinates with gentle dampening
-    const targetX = -state.pointer.y * 0.35
-    const targetY = state.pointer.x * 0.45
-
-    groupRef.current.rotation.x += (targetX - groupRef.current.rotation.x) * 0.05
-    groupRef.current.rotation.z += (-state.pointer.x * 0.15 - groupRef.current.rotation.z) * 0.05
+    // Smooth lerp damping
+    groupRef.current.rotation.x += (targetX - groupRef.current.rotation.x) * 0.08
+    groupRef.current.rotation.y += (targetY - groupRef.current.rotation.y) * 0.08
+    groupRef.current.rotation.z += (targetZ - groupRef.current.rotation.z) * 0.08
   })
 
   return (
@@ -56,12 +56,12 @@ export default function CertificationBadge3D({
         eventPrefix="client"
       >
         <Suspense fallback={null}>
-          <ambientLight intensity={0.7} />
-          <directionalLight position={[5, 6, 4]} intensity={1.5} />
+          <ambientLight intensity={0.8} />
+          <directionalLight position={[5, 6, 4]} intensity={1.6} />
           <directionalLight position={[-5, -2, -2]} intensity={0.6} color="#ff7a1a" />
           <pointLight position={[0, 2, 3]} intensity={1.2} />
 
-          <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.5}>
+          <Float speed={1.2} rotationIntensity={0.05} floatIntensity={0.3}>
             <BadgeModel scale={scale} />
           </Float>
 
