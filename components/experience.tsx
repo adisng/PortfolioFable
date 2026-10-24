@@ -100,51 +100,49 @@ export function Experience() {
           </h2>
         </Reveal>
 
-        {/* Featured 3D Certification Showcase Card */}
+        {/* Floating Independent 3D Certification Showcase */}
         <Reveal delay={0.1}>
-          <div className="glass mt-12 overflow-hidden p-6 sm:p-8 md:p-10">
-            <div className="grid items-center gap-8 lg:grid-cols-12">
-              {/* 3D Interactive Canvas */}
-              <div className="relative order-2 flex items-center justify-center border-2 border-border bg-secondary/50 p-2 lg:order-1 lg:col-span-5">
-                <CertificationBadge3D className="h-64 w-full sm:h-72" scale={1.75} />
+          <div className="mt-16 grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
+            {/* Free-floating 3D Interactive Canvas (No container box) */}
+            <div className="relative order-1 flex items-center justify-center lg:col-span-5">
+              <CertificationBadge3D className="h-80 w-full sm:h-96" scale={2.0} />
+            </div>
+
+            {/* Certification Details */}
+            <div className="order-2 flex flex-col justify-center lg:col-span-7">
+              <div className="flex flex-wrap items-center gap-2 font-mono text-xs uppercase tracking-widest text-accent">
+                <span className="inline-flex items-center gap-1.5 border border-accent/40 bg-accent/10 px-2.5 py-1 font-semibold">
+                  <ShieldCheck className="size-3.5 text-accent" /> Official Certification
+                </span>
+                <span className="border border-border bg-secondary px-2.5 py-1 text-muted-foreground">
+                  Amazon Web Services
+                </span>
               </div>
 
-              {/* Certification Details */}
-              <div className="order-1 flex flex-col justify-center lg:order-2 lg:col-span-7">
-                <div className="flex flex-wrap items-center gap-2 font-mono text-xs uppercase tracking-widest text-accent">
-                  <span className="inline-flex items-center gap-1.5 border border-accent/40 bg-accent/10 px-2.5 py-1 font-semibold">
-                    <ShieldCheck className="size-3.5 text-accent" /> Official Certification
-                  </span>
-                  <span className="border border-border bg-secondary px-2.5 py-1 text-muted-foreground">
-                    Amazon Web Services
-                  </span>
-                </div>
+              <h3 className="mt-4 font-serif text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
+                AWS Certified Cloud Practitioner
+              </h3>
 
-                <h3 className="mt-4 font-serif text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-                  AWS Certified Cloud Practitioner
-                </h3>
+              <p className="mt-4 leading-relaxed text-muted-foreground sm:text-base">
+                Validated foundational understanding of AWS cloud concepts, global infrastructure, security, core services (Compute, Storage, Networking, Databases), and cloud economics.
+              </p>
 
-                <p className="mt-3 leading-relaxed text-muted-foreground">
-                  Validated foundational understanding of AWS cloud concepts, global infrastructure, security, core services (Compute, Storage, Networking, Databases), and cloud economics.
-                </p>
+              <div className="mt-6 flex flex-wrap gap-2 font-mono text-xs uppercase tracking-wider text-muted-foreground">
+                <span className="border border-border bg-secondary/60 px-3 py-1">Cloud Architecture</span>
+                <span className="border border-border bg-secondary/60 px-3 py-1">AWS Core Services</span>
+                <span className="border border-border bg-secondary/60 px-3 py-1">Security &amp; IAM</span>
+                <span className="border border-border bg-secondary/60 px-3 py-1">Cloud Economics</span>
+              </div>
 
-                <div className="mt-6 flex flex-wrap gap-2 font-mono text-xs uppercase tracking-wider text-muted-foreground">
-                  <span className="border border-border bg-secondary/60 px-3 py-1">Cloud Architecture</span>
-                  <span className="border border-border bg-secondary/60 px-3 py-1">AWS Core Services</span>
-                  <span className="border border-border bg-secondary/60 px-3 py-1">Security &amp; IAM</span>
-                  <span className="border border-border bg-secondary/60 px-3 py-1">Cloud Economics</span>
-                </div>
-
-                <div className="mt-8 flex items-center gap-4">
-                  <a
-                    href="https://www.credly.com/badges/cafdd014-7583-4124-bb34-db9745ea2adf/public_url"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="brutal-shadow-accent inline-flex items-center gap-2 border-2 border-foreground bg-primary px-6 py-3 font-mono text-xs font-bold uppercase tracking-wider text-primary-foreground transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
-                  >
-                    Verify on Credly <ExternalLink className="size-3.5" />
-                  </a>
-                </div>
+              <div className="mt-8 flex items-center gap-4">
+                <a
+                  href="https://www.credly.com/badges/cafdd014-7583-4124-bb34-db9745ea2adf/public_url"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="brutal-shadow-accent inline-flex items-center gap-2 border-2 border-foreground bg-primary px-6 py-3.5 font-mono text-xs font-bold uppercase tracking-wider text-primary-foreground transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
+                >
+                  Verify on Credly <ExternalLink className="size-3.5" />
+                </a>
               </div>
             </div>
           </div>
