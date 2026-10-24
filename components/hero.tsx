@@ -26,7 +26,7 @@ export function Hero() {
       {/* Cinematic 3D centerpiece */}
       <Hero3D />
 
-      <div className="relative z-10 flex w-full max-w-5xl flex-col items-center px-2 text-center">
+      <div className="relative z-10 flex w-full max-w-5xl flex-col items-center px-2 text-center pt-24 sm:pt-0">
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
