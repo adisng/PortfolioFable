@@ -17,15 +17,15 @@ function BadgeModel({ scale = 1.25 }: { scale?: number }) {
   useFrame((state) => {
     if (!groupRef.current) return
 
-    // Keep it facing straight forward; only tilt responsively with cursor position
-    const targetX = -state.pointer.y * 0.35 // vertical tilt
-    const targetY = state.pointer.x * 0.45  // horizontal turn towards cursor
-    const targetZ = -state.pointer.x * 0.1   // subtle roll
+    // Subtle, gentle tilt with reduced sensitivity
+    const targetX = -state.pointer.y * 0.14 // subtle vertical tilt
+    const targetY = state.pointer.x * 0.18  // subtle horizontal turn towards cursor
+    const targetZ = -state.pointer.x * 0.04 // barely noticeable roll
 
-    // Smooth lerp damping
-    groupRef.current.rotation.x += (targetX - groupRef.current.rotation.x) * 0.08
-    groupRef.current.rotation.y += (targetY - groupRef.current.rotation.y) * 0.08
-    groupRef.current.rotation.z += (targetZ - groupRef.current.rotation.z) * 0.08
+    // Smooth lerp damping for calm, elegant motion
+    groupRef.current.rotation.x += (targetX - groupRef.current.rotation.x) * 0.05
+    groupRef.current.rotation.y += (targetY - groupRef.current.rotation.y) * 0.05
+    groupRef.current.rotation.z += (targetZ - groupRef.current.rotation.z) * 0.05
   })
 
   return (
