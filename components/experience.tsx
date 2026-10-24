@@ -104,12 +104,12 @@ export function Experience() {
         <Reveal delay={0.1}>
           <div className="mt-16 grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
             {/* Free-floating 3D Interactive Canvas (No container box) */}
-            <div className="relative order-1 flex items-center justify-center lg:col-span-5">
-              <CertificationBadge3D className="h-80 w-full sm:h-96" scale={2.0} />
+            <div className="relative order-1 flex items-center justify-center lg:col-span-4">
+              <CertificationBadge3D className="h-56 w-full sm:h-64" scale={1.25} />
             </div>
 
             {/* Certification Details */}
-            <div className="order-2 flex flex-col justify-center lg:col-span-7">
+            <div className="order-2 flex flex-col justify-center lg:col-span-8">
               <div className="flex flex-wrap items-center gap-2 font-mono text-xs uppercase tracking-widest text-accent">
                 <span className="inline-flex items-center gap-1.5 border border-accent/40 bg-accent/10 px-2.5 py-1 font-semibold">
                   <ShieldCheck className="size-3.5 text-accent" /> Official Certification
